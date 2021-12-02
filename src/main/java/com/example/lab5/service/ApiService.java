@@ -4,6 +4,7 @@ package com.example.lab5.service;
 import com.example.lab5.LocalBusiness;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import ezvcard.VCard;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +13,8 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -22,14 +25,12 @@ public class ApiService {
     private final ObjectMapper objectMapper;
 
     public String getVCard(String searchTerm) throws IOException {
-        Gson gson = new Gson();
+
         String searchURI = URI + searchTerm;
         Elements elementsFromWebsite = getElementsFromHtml(searchURI);
-        for (Element e : elementsFromWebsite) {
-            // System.out.println(e.data());
-
-            LocalBusiness localBusiness = gson.fromJson(e.data(), LocalBusiness.class);
-            System.out.println(localBusiness.toString());
+        List<LocalBusiness> localBusinesses = createListOfLocalBusiness(elementsFromWebsite);
+        for (LocalBusiness l : localBusinesses) {
+            System.out.println(l.toString());
         }
         return "Test";
     }
@@ -46,4 +47,17 @@ public class ApiService {
         result.remove(elements.last());
         return result;
     }
+
+    List<LocalBusiness> createListOfLocalBusiness(Elements elementsFromWebsite) {
+        Gson gson = new Gson();
+        List<LocalBusiness> localBusinesses = new ArrayList<>();
+        for (Element e : elementsFromWebsite) {
+            LocalBusiness localBusiness = gson.fromJson(e.data(), LocalBusiness.class);
+            localBusinesses.add(localBusiness);
+        }
+
+        return localBusinesses;
+    }
+
+
 }
