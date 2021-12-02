@@ -2,8 +2,8 @@ package com.example.lab5.controller;
 
 
 import com.example.lab5.service.ApiService;
+import ezvcard.VCard;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -15,7 +15,15 @@ public class ApiController {
     private final ApiService apiService;
 
     @GetMapping("/lab5/{searchTerm}")
-    public StringBuilder getVCard(@PathVariable("searchTerm") String searchTerm) throws IOException {
-       return apiService.getVCard(searchTerm);
+    public StringBuilder getList(@PathVariable("searchTerm") String searchTerm) throws IOException {
+        return apiService.getList(searchTerm);
+    }
+
+    @GetMapping(value = "/vcard/", produces = {"text/vcard"})
+    public String getVcard(@RequestParam String name,
+                          @RequestParam String telephone,
+                          @RequestParam String email,
+                          @RequestParam String website) throws IOException {
+        return apiService.getVCard(name,telephone,email,website);
     }
 }

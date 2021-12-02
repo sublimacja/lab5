@@ -4,7 +4,9 @@ package com.example.lab5.service;
 import com.example.lab5.LocalBusiness;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import ezvcard.Ezvcard;
 import ezvcard.VCard;
+import ezvcard.VCardVersion;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +26,7 @@ public class ApiService {
     private static String TYPE_ELEMENT = "application/ld+json";
     private final ObjectMapper objectMapper;
 
-    public StringBuilder getVCard(String searchTerm) throws IOException {
+    public StringBuilder getList(String searchTerm) throws IOException {
 
         String searchURI = URI + searchTerm;
         Elements elementsFromWebsite = getElementsFromHtml(searchURI);
@@ -56,14 +58,14 @@ public class ApiService {
         return localBusinesses;
     }
 
-    VCard createVCard(LocalBusiness localBusiness) {
+    public String getVCard(String name, String telephone, String email, String website) {
         VCard vCard = new VCard();
-        vCard.addTitle(localBusiness.getName());
-        vCard.setFormattedName(localBusiness.getName());
-        vCard.addEmail(localBusiness.getEmail());
-        vCard.addTelephoneNumber(localBusiness.getTelephone());
-        vCard.addUrl(localBusiness.getSameAs());
-        return vCard;
+        vCard.addTitle(name);
+        vCard.setFormattedName(name);
+        vCard.addEmail(email);
+        vCard.addTelephoneNumber(website);
+        vCard.addTelephoneNumber(telephone);
+        return Ezvcard.write(vCard).version(VCardVersion.V4_0).go();
     }
 
     public StringBuilder generateHtml(List<LocalBusiness> localBusinesses) {
@@ -100,8 +102,10 @@ public class ApiService {
         for (LocalBusiness b : localBusinesses) {
             help.append(String.format(
                     "    <ul>" +
-                            "<li>Imie: %s Telefon: %s Email: %s  Link: %s </li>",
-                    b.getName(), b.getTelephone(), b.getEmail(), b.getSameAs()));
+                            "<li>Imie: %s Telefon: %s Email: %s  Link: %s </li>"
+                    + "<a href=/api/ppkwu/vcard/?%s>\" +\n" +
+                            "\"<button>VCARD</button></a></p>\\n",
+                    b.getName(), b.getTelephone(), b.getEmail(), b.getSameAs(),b.getName(),b.getTelephone(),b.getEmail(),b.getSameAs()));
         }
         stringBuilder.append(help);
         stringBuilder.append("</html>");
