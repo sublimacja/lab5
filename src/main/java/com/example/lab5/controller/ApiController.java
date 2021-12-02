@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/ppkwu")
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class ApiController {
     private final ApiService apiService;
 
     @GetMapping("/lab5/{searchTerm}")
-    public String getVCard(@PathVariable("searchTerm") String searchTerm) {
+    public String getVCard(@PathVariable("searchTerm") String searchTerm) throws IOException {
         return apiService.getVCard(searchTerm);
     }
 }
