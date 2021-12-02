@@ -19,6 +19,9 @@ public class ApiService {
     public String getVCard(String searchTerm) throws IOException {
         String searchURI = URI + searchTerm;
         Elements elementsFromWebsite=getElementsFromHtml(searchURI);
+        for (Element e:elementsFromWebsite){
+            System.out.println(e.d);
+        }
             return "Test";
         }
 
