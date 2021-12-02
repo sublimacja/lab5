@@ -29,7 +29,7 @@ public class ApiService {
         String searchURI = URI + searchTerm;
         Elements elementsFromWebsite = getElementsFromHtml(searchURI);
         List<LocalBusiness> localBusinesses = createListOfLocalBusiness(elementsFromWebsite);
-       return generateHtml(localBusinesses);
+        return generateHtml(localBusinesses);
     }
 
     Elements getElementsFromHtml(String searchURI) throws IOException {
@@ -66,9 +66,9 @@ public class ApiService {
         return vCard;
     }
 
-    public StringBuilder generateHtml(List<LocalBusiness> localBusinesses){
+    public StringBuilder generateHtml(List<LocalBusiness> localBusinesses) {
 
-        StringBuilder stringBuilder=new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "  <head>\n" +
@@ -94,17 +94,17 @@ public class ApiService {
                 "ul li {\n" +
                 "  background: #cce5ff;\n" +
                 "  margin: 5px;\n" +
-                "}</style>"+
-                "  <body>\n" );
-        StringBuilder help=new StringBuilder();
-        for(LocalBusiness b:localBusinesses)
-        {
+                "}</style>" +
+                "  <body>\n");
+        StringBuilder help = new StringBuilder();
+        for (LocalBusiness b : localBusinesses) {
             help.append(String.format(
                     "    <ul>" +
-                            "<li>Imie: %s \n </li>",b.getName()));
+                            "<li>Imie: %s Telefon: %s Email: %s  Link: %s </li>",
+                    b.getName(), b.getTelephone(), b.getEmail(), b.getSameAs()));
         }
         stringBuilder.append(help);
-        stringBuilder.append( "</html>");
+        stringBuilder.append("</html>");
         return stringBuilder;
     }
 
