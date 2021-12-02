@@ -36,6 +36,4 @@ fryzjer
 
 `wyjście:`
 
-```
-![1 img](./photo)
-```
+![alt text](https://github.com/sublimacja/lab5/blob/master/photo.PNG)
