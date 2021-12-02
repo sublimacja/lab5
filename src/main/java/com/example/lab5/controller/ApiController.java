@@ -20,10 +20,8 @@ public class ApiController {
     }
 
     @GetMapping(value = "/vcard/", produces = {"text/vcard"})
-    public String getVcard(@RequestParam String name,
-                          @RequestParam String telephone,
-                          @RequestParam String email,
-                          @RequestParam String website) throws IOException {
-        return apiService.getVCard(name,telephone,email,website);
+    public String getVcard(@RequestParam String name
+                          )  {
+        return apiService.getVCard(name);
     }
 }

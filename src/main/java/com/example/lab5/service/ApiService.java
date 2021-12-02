@@ -58,13 +58,10 @@ public class ApiService {
         return localBusinesses;
     }
 
-    public String getVCard(String name, String telephone, String email, String website) {
+    public String getVCard(String name) {
         VCard vCard = new VCard();
         vCard.addTitle(name);
         vCard.setFormattedName(name);
-        vCard.addEmail(email);
-        vCard.addTelephoneNumber(website);
-        vCard.addTelephoneNumber(telephone);
         return Ezvcard.write(vCard).version(VCardVersion.V4_0).go();
     }
 
@@ -102,10 +99,10 @@ public class ApiService {
         for (LocalBusiness b : localBusinesses) {
             help.append(String.format(
                     "    <ul>" +
-                            "<li>Imie: %s Telefon: %s Email: %s  Link: %s </li>"
-                    + "<a href=/api/ppkwu/vcard/?%s>\" +\n" +
-                            "\"<button>VCARD</button></a></p>\\n",
-                    b.getName(), b.getTelephone(), b.getEmail(), b.getSameAs(),b.getName(),b.getTelephone(),b.getEmail(),b.getSameAs()));
+                            "<li>Imie: %s Telefon: %s Email: %s  Link: %s"
+                    + "<a href=/api/ppkwu/vcard/?%s>" +
+                            "<button>VCARD</button></a> </li>",
+                    b.getName(), b.getTelephone(), b.getEmail(), b.getSameAs(),b.getName()));
         }
         stringBuilder.append(help);
         stringBuilder.append("</html>");
