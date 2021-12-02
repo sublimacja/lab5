@@ -1,10 +1,17 @@
 package com.example.lab5;
 
+import lombok.Data;
+import lombok.ToString;
+
+
+@Data
+@ToString
 public class LocalBusiness {
-    String name;
-    String telephone;
-    String email;
-    String sameAs;
-    BusinessAddress address;
+    private String name;
+    private String telephone;
+    private String email;
+    private String sameAs;
+    private BusinessAddress address;
+
 
 }
