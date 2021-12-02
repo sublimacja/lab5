@@ -37,5 +37,5 @@ fryzjer
 `wyjście:`
 
 ```
-
+![1 img](./photo)
 ```
