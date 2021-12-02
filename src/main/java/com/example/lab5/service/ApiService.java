@@ -24,15 +24,12 @@ public class ApiService {
     private static String TYPE_ELEMENT = "application/ld+json";
     private final ObjectMapper objectMapper;
 
-    public String getVCard(String searchTerm) throws IOException {
+    public StringBuilder getVCard(String searchTerm) throws IOException {
 
         String searchURI = URI + searchTerm;
         Elements elementsFromWebsite = getElementsFromHtml(searchURI);
         List<LocalBusiness> localBusinesses = createListOfLocalBusiness(elementsFromWebsite);
-        for (LocalBusiness l : localBusinesses) {
-            System.out.println(l.toString());
-        }
-        return "Test";
+       return generateHtml(localBusinesses);
     }
 
     Elements getElementsFromHtml(String searchURI) throws IOException {
@@ -59,5 +56,56 @@ public class ApiService {
         return localBusinesses;
     }
 
+    VCard createVCard(LocalBusiness localBusiness) {
+        VCard vCard = new VCard();
+        vCard.addTitle(localBusiness.getName());
+        vCard.setFormattedName(localBusiness.getName());
+        vCard.addEmail(localBusiness.getEmail());
+        vCard.addTelephoneNumber(localBusiness.getTelephone());
+        vCard.addUrl(localBusiness.getSameAs());
+        return vCard;
+    }
+
+    public StringBuilder generateHtml(List<LocalBusiness> localBusinesses){
+
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "  <head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>Service Worker Toolbox</title>\n" +
+                "  </head>\n" +
+                "<style>ol {\n" +
+                "  background: #ff9999;\n" +
+                "  padding: 20px;\n" +
+                "}\n" +
+                "\n" +
+                "ul {\n" +
+                "  background: #3399ff;\n" +
+                "  padding: 20px;\n" +
+                "}\n" +
+                "\n" +
+                "ol li {\n" +
+                "  background: #ffe5e5;\n" +
+                "  padding: 5px;\n" +
+                "  margin-left: 35px;\n" +
+                "}\n" +
+                "\n" +
+                "ul li {\n" +
+                "  background: #cce5ff;\n" +
+                "  margin: 5px;\n" +
+                "}</style>"+
+                "  <body>\n" );
+        StringBuilder help=new StringBuilder();
+        for(LocalBusiness b:localBusinesses)
+        {
+            help.append(String.format(
+                    "    <ul>" +
+                            "<li>Imie: %s \n </li>",b.getName()));
+        }
+        stringBuilder.append(help);
+        stringBuilder.append( "</html>");
+        return stringBuilder;
+    }
 
 }

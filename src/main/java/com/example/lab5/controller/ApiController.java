@@ -3,10 +3,8 @@ package com.example.lab5.controller;
 
 import com.example.lab5.service.ApiService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -17,7 +15,7 @@ public class ApiController {
     private final ApiService apiService;
 
     @GetMapping("/lab5/{searchTerm}")
-    public String getVCard(@PathVariable("searchTerm") String searchTerm) throws IOException {
-        return apiService.getVCard(searchTerm);
+    public StringBuilder getVCard(@PathVariable("searchTerm") String searchTerm) throws IOException {
+       return apiService.getVCard(searchTerm);
     }
 }
