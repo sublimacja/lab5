@@ -2,7 +2,6 @@ package com.example.lab5.controller;
 
 
 import com.example.lab5.service.ApiService;
-import ezvcard.VCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ public class ApiController {
 
     @GetMapping(value = "/vcard/", produces = {"text/vcard"})
     public String getVcard(@RequestParam String name
-                          )  {
+    ) {
         return apiService.getVCard(name);
     }
 }

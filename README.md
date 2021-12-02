@@ -7,18 +7,35 @@ znalezionego wpisu. Implementacja zawiera "wyciąganie" maili, numerów telefon�
 * **SKŁADNIA**
 
  ``` 
-
+ścieżkaApi/{searchTerm}
 ```
 
 * **Parametry**
 
  ```
-
+{searchTerm} - fraza którą chcemy wyszukać w serwisie https://panoramafirm.pl.
  ```
 
 * **Metoda**
 
 ```
+GET
+```
+
+* **Przykłady użycia:**
+
+```
+http://localhost:8080/api/ppkwu/lab5/fryzjer
+```
+
+`wejście:`
+
+```
+fryzjer
+```
+
+`wyjście:`
 
 ```
 
+```

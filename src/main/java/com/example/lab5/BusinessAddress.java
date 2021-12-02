@@ -10,9 +10,9 @@ import lombok.ToString;
 @ToString
 public class BusinessAddress {
 
-        private String streetAddress;
-        private String addressLocality;
-        private String postalCode;
-        private String addressCountry;
+    private String streetAddress;
+    private String addressLocality;
+    private String postalCode;
+    private String addressCountry;
 
 }

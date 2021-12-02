@@ -100,9 +100,9 @@ public class ApiService {
             help.append(String.format(
                     "    <ul>" +
                             "<li>Imie: %s Telefon: %s Email: %s  Link: %s"
-                    + "<a href=/api/ppkwu/vcard/?%s>" +
+                            + "<a href=/api/ppkwu/vcard/?%s>" +
                             "<button>VCARD</button></a> </li>",
-                    b.getName(), b.getTelephone(), b.getEmail(), b.getSameAs(),b.getName()));
+                    b.getName(), b.getTelephone(), b.getEmail(), b.getSameAs(), b.getName()));
         }
         stringBuilder.append(help);
         stringBuilder.append("</html>");
